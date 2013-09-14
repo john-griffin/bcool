@@ -15,6 +15,7 @@ import (
 type Item struct {
 	Link        string `xml:"link"`
 	Title       string `xml:"title"`
+	Creator     string `xml:"creator"`
 	Guid        string `xml:"guid"`
 	PubDate     string `xml:"pubDate"`
 	Description string `xml:"description"`
