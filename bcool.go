@@ -31,6 +31,11 @@ type Rss struct {
 	Channel Channel  `xml:"channel"`
 }
 
+type Description struct {
+	Key   int
+	Value string
+}
+
 func OriginalFeedBody() []byte {
 	res, err := http.Get("http://www.bleedingcool.com/feed/")
 	if err != nil {
@@ -80,14 +85,23 @@ func Feed(w http.ResponseWriter, r *http.Request) {
 	body := OriginalFeedBody()
 	v := Rss{}
 	err := xml.Unmarshal(body, &v)
-	for key, value := range v.Channel.Items {
-		value.Description = FetchFullDescription(value.Link)
-		v.Channel.Items[key] = value
-	}
 	if err != nil {
 		log.Fatal(err)
 	}
+	c := make(chan Description)
+	for key, value := range v.Channel.Items {
+		go func(key int, link string) {
+			c <- Description{key, FetchFullDescription(link)}
+		}(key, value.Link)
+	}
+	for _ = range v.Channel.Items {
+		result := <-c
+		v.Channel.Items[result.Key].Description = result.Value
+	}
 	b, err := xml.Marshal(v)
+	if err != nil {
+		log.Fatal(err)
+	}
 	w.Header().Set("Content-Type", "text/xml")
 	fmt.Fprint(w, string(b))
 }
