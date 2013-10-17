@@ -16,14 +16,14 @@ of the source page. This includes images, video and more text.
 
 ## Usage
 
-To compile and run locally, ensure you have [Go](http://golang.org) then clone 
+To compile and run locally, ensure you have [Go](http://golang.org), clone
 the repo and run this command
 
 ``` bash
 $ PORT=5000 go run bcool.go
 ```
 
-Then navigate to `http://localhost:5000/feed` in your browser for aggregator to 
+Then navigate to `http://localhost:5000/feed` in your browser or aggregator to
 see the feed.
 
 To run your own hosted version it's really easy to deploy to Heroku by running
@@ -35,7 +35,7 @@ $ git push heroku master
 
 ## To do
 
-The approach I have taken here could be applied generally to other feeds. I'd 
+The approach I have taken here could be applied generally to other feeds. I'd
 like to extract this out and use it elsewhere.
 
 [1]: http://www.bleedingcool.com
