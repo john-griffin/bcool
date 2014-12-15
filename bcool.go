@@ -64,9 +64,9 @@ func FetchFullDescription(link string) string {
 	content := ""
 	var f func(*html.Node)
 	f = func(n *html.Node) {
-		if n.Type == html.ElementNode && n.Data == "div" {
+		if n.Type == html.ElementNode && n.Data == "section" {
 			for _, a := range n.Attr {
-				if a.Key == "class" && a.Val == "entry-content" {
+				if a.Key == "class" && a.Val == "entry-content cf" {
 					var buf bytes.Buffer
 					html.Render(&buf, n)
 					content = buf.String()
