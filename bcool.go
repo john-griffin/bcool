@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"code.google.com/p/go.net/html"
 	"encoding/xml"
 	"fmt"
 	"io/ioutil"
@@ -10,6 +9,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"code.google.com/p/go.net/html"
 )
 
 type Item struct {
