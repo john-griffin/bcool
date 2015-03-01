@@ -13,6 +13,7 @@ of the source page. This includes images, video and more text.
 
 * Uses goroutines and channels to fetch each page in parallel. Very fast.
 * No external dependancies.
+* Category support.
 
 ## Usage
 
@@ -24,7 +25,9 @@ $ PORT=5000 go run bcool.go
 ```
 
 Then navigate to `http://localhost:5000/feed` in your browser or aggregator to
-see the feed.
+see the full feed. If you are only interesting in a single category a param can
+be optionally applied eg `http://localhost:5000/feed?category=comics`. At the
+time of writing the categories available are `comics`, `film` and `games-2`.
 
 To run your own hosted version it's really easy to deploy to Heroku by running
 

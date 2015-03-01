@@ -38,8 +38,14 @@ type Description struct {
 	Value string
 }
 
-func OriginalFeedBody() []byte {
-	res, err := http.Get("http://www.bleedingcool.com/feed/")
+func OriginalFeedBody(category string) []byte {
+	categoryPath := ""
+	if len(category) > 0 {
+		categoryPath = "/category/" + category
+	}
+	url := fmt.Sprintf("http://www.bleedingcool.com%s/feed/", categoryPath)
+	log.Printf("Fetching %s", url)
+	res, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -84,7 +90,8 @@ func FetchFullDescription(link string) string {
 }
 
 func Feed(w http.ResponseWriter, r *http.Request) {
-	body := OriginalFeedBody()
+	category := r.URL.Query().Get("category")
+	body := OriginalFeedBody(category)
 	v := Rss{}
 	err := xml.Unmarshal(body, &v)
 	if err != nil {
